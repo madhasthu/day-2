@@ -5,15 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <link rel="stylesheet" href="./style.css">
-    <form class="" login-form>
+
+    <form class="login-form" onsubmit="Login(event)">
         <input type="email" name="" class="login-input" id="email" placeholder="email" required>
         <input type="password" name="" class="login-input" id="password" placeholder="password" required>
-        <input type="submit" value="Login" class="login-button">
+        <input type="submit" value="Login" class="login-btn">
     </form>
+    <!--<button class="login-btn" onclick="myfunction()">onclick</button>-->
+
 </body>
 <script>
     console.log("hello");
@@ -23,7 +26,7 @@
     x = 30
     console.log(x);
     x = false
-    console.log(x);
+    console.log(x); 
     x = undefined
     console.log(x);
     x = null
@@ -35,8 +38,40 @@
         isalive: false
     }
     console.log(obj);
-    let arr=[x,obj]
+    let arr = [x, obj]
     console.log(arr);
+    let arr1 = [1, 2, 3, 4, 5]
+    console.log(arr1);
+    let arr2 = [...arr1, "ddddd", ...arr]
+    console.log(arr2);
+    function myfunction() {
+        console.error("hello")
+        console.warn("hiiii")
+    }
+    function Login(event) {
+        event.preventDefault()
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
+        console.log("Login:" + email + password);
+        if (password.length < 5) {
+            alert("password should contain atleast eight characters")
+        } else if (email === "priya@gmail.com" && password === "12345") {
+            alert("Login success")
+            API()
+        } else {
+            alert('invalid credientials')
+        }
+    }
+    async function API() {
+        console.log("called API");
+        try {
+            const response = await fetch('https://671b71022c842d92c37fecd0.mockapi.io/day3offsd/documents')
+            console.log(await response.json())
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
 </script>
 
 </html>
