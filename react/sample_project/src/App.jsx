@@ -4,7 +4,7 @@ const App = () => {
     appname:"hello"
  }
  const logodata="mylogo"
- const test="hbb"
+ const test="hiii.."
 
  return(
     <>
