@@ -14,17 +14,14 @@ router.get('/all', async (req, res) => {
 router.post('/add', async (req, res) => {
     try {
         const newuser = new Users(req.body)
-        const { name, email, phone, password } = newuser
-        if (!name || !email || !phone || !password) {
+        const { name, email, phone, password ,address} = newuser
+        if (!name || !email || !phone || !password || !address) {
             res.status(400).json({ message: "All fields required" })
         }
 
         //TODO : Add User Email & Phone Validation
 
-        //Email
-
-        //Phone
-
+        
         await newuser.save()
         res.status(200).json(newuser)
     } catch (error) {

@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router();
 const Products = require('../models/ProductsModel')
+const validate = require('../config/auth')
 
 // Method : GET  || API : localhost:3000/products/all
-router.get('/all', async (req, res) => {
+router.get('/all',validate,async (req, res) => {
     try {
         const products = await Products.find()
         res.status(200).json(products)

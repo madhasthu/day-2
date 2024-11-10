@@ -10,6 +10,8 @@ const HomeCards = () => {
                         <ShoppingCart className='h-8 w-8 mr-2 text-black group-hover:text-white  duration-300 ' />
                         <h1 className="z-20 font-bold font-Poppin group-hover:text-white duration-300 text-lg">
                             Free Shipping
+
+
                         </h1>
                     </div>
                 </div>
