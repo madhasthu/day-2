@@ -1,58 +1,65 @@
 const express = require('express')
-const router = express.Router();
-const Orders = require('../models/OrdersModel')
+const router = express.Router()
+const Orders=require('../models/OrdersModel')
+const { trusted } = require('mongoose')
+// const validate = require('../config/auth')
 
-router.get('/all', async (req, res) => {
-    try {
+router.get('/all',async(req,res)=>
+{
+    try{
         const orders = await Orders.find()
         res.status(200).json(orders)
-    } catch (error) {
-        res.status(500).json({ message: error.message })
+    }
+    catch(error){
+        res.status(500).json({message:error})
     }
 })
-
-router.post('/add', async (req, res) => {
-    try {
-        const neworder = new Orders(req.body)
-        const { uid, pid, total,phone, address, } = neworder
-        if (!uid || !pid || !total || !phone|| !address) {
-            res.status(400).json({ message: "All fields required" })
+//POST
+router.post('/add',async(req,res)=>{
+    try{
+        const OrderData = new Orders(req.body)
+        const {userID,phone,price,email,orderDate, shippingDate} = OrderData
+        if(!userID||!phone||!price||!email||!orderDate||!shippingDate){
+            res.status(401).json({message:"All fields required"})  
         }
-        //TODO : Add User & Product Validation 
-        await neworder.save()
-        res.status(200).json(neworder)
-    } catch (error) {
-        res.status(500).json({ message: error.message })
+        const storedata = await OrderData.save()
+        res.status(201).json(OrderData)
+    }
+    catch(error){
+        res.status(500).json({message:error.message})
     }
 })
 
-router.put('/edit/:id', async (req, res) => {
-    try {
+
+//PUT
+router.put('/edit/:id',async(req,res)=>{
+    try{
         const id = req.params.id
-        const existingorder = await Orders.findOne({ _id: id })
-        if (!existingorder) {
-            res.status(404).json({ message: "Order not found" })
+        const existingorder = await Orders.findOne({_id:id})
+        if(!existingorder){
+            res.status(404).json({message:"Product not found"})
         }
-        const updatedorder = await Orders.findByIdAndUpdate(id, req.body, { new: true })
-        res.status(200).json(updatedorder)
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
+        const updateorder = await Orders.findByIdAndUpdate(id,req.body,{new:true})
+        res.status(200).json(updateorder)
+    }  
+    catch(error){
+        res.status(500).json({message:error.message})
+    }  
 })
 
-router.delete('/delete/:id', async (req, res) => {
-    try {
+//DELETE
+router.delete('/delete/:id',async(req,res)=>{
+    try{
         const id = req.params.id
-        const existingorder = await Orders.findOne({ _id: id })
-        if (!existingorder) {
-            res.status(404).json({ message: "Order not found" })
+        const existingorder = await Orders.findOne({_id:id})
+        if(!existingorder){
+            res.status(404).json({message:"Order not found"})
         }
         await Orders.findByIdAndDelete(id)
-        res.status(200).json({ message: "Order Deleted" })
-    } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(200).json({message:"Product Deleted"})
+    }
+    catch(error){
+        res.status(500).json({message:error.message})
     }
 })
-
-
-module.exports = router
+module.exports= router

@@ -1,10 +1,9 @@
 const express = require('express')
 const router = express.Router();
 const Products = require('../models/ProductsModel')
-const validate = require('../config/auth')
-
+//const validate = require('../config/auth')
 // Method : GET  || API : localhost:3000/products/all
-router.get('/all',validate,async (req, res) => {
+router.get('/all', async (req, res) => {
     try {
         const products = await Products.find()
         res.status(200).json(products)
@@ -29,7 +28,7 @@ router.post('/add', async (req, res) => {
 })
 
 // Method : PUT  || API : localhost:3000/products/edit/_id
-router.put('/edit/:id', async (req, res) => {
+router.put('/edit/:id',  async (req, res) => {
     try {
         const id = req.params.id
         const existingproduct = await Products.findOne({ _id: id })
@@ -44,7 +43,7 @@ router.put('/edit/:id', async (req, res) => {
 })
 
 // Method : DELETE  || API : localhost:3000/products/delete/_id
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id',  async (req, res) => {
     try {
         const id = req.params.id
         const existingproduct = await Products.findOne({ _id: id })
@@ -57,12 +56,9 @@ router.delete('/delete/:id', async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 })
-module.exports = router;
 
 
-
-
-
+module.exports = router
 
 // 1.GET
 // 2.POST
