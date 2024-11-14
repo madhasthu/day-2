@@ -168,7 +168,7 @@ const AdminProducts = () => {
       {showAdd && (
         <>
           <div className="absolute top-0 left-0 z-50 h-screen w-screen flex justify-center items-center bg-black/40 ">
-            <div className='h-[55%] w-1/3 flex flex-col justify-center items-center bg-white shadow-2xl rounded-md'>
+            <div className='h-[95%] w-1/3 flex flex-col justify-center items-center bg-white shadow-2xl rounded-md'>
               <div className='h-full w-full flex flex-col justify-center items-center text-lg font-semibold'>
                 <div className="h-[20%] w-[80%] flex flex-row justify-center items-center">
                   <h1 className='w-1/2 text-left text-xl my-6 font-bold text-green-500'>Add Product</h1>

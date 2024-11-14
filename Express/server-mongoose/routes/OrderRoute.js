@@ -4,6 +4,15 @@ const Orders=require('../models/OrdersModel')
 const { trusted } = require('mongoose')
 // const validate = require('../config/auth')
 
+router.get('/count', async (req, res) => {
+    try {
+        const count = await Orders.countDocuments()
+        return res.status(200).json({ count: count })
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+})
+
 router.get('/all',async(req,res)=>
 {
     try{
@@ -20,7 +29,7 @@ router.post('/add',async(req,res)=>{
         const OrderData = new Orders(req.body)
         const {userID,phone,price,email,orderDate, shippingDate} = OrderData
         if(!userID||!phone||!price||!email||!orderDate||!shippingDate){
-            res.status(401).json({message:"All fields required"})  
+            res.status(400).json({message:"All fields required"})  
         }
         const storedata = await OrderData.save()
         res.status(201).json(OrderData)

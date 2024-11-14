@@ -9,7 +9,7 @@ router.post('/register', async (req, res) => {
         // const newuser = new Users(req.body)
         const { name, email, phone, password } = req.body
         if (!name || !email || !phone || !password) {
-            return res.status(401).json({ message: "All fields required" })
+            return res.status(400).json({ message: "All fields required" })
         }
 
         //TODO : Add User Email & Phone Validation
@@ -34,7 +34,7 @@ router.post('/register', async (req, res) => {
             password: hashedpassword
         })
         await newuser.save()
-        return res.status(200).json(newuser)
+        return res.status(200).json({message:"User added"})
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
